@@ -1,6 +1,8 @@
 # Must use a Cuda version 11+
 FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-runtime
 
+ARG HF_AUTH_TOKEN
+
 WORKDIR /
 
 # Install git
@@ -17,8 +19,7 @@ RUN pip install --upgrade git+https://github.com/huggingface/diffusers.git trans
 ADD server.py .
 EXPOSE 8000
 
-# Add your huggingface auth key here
-ENV HF_AUTH_TOKEN=your_token
+ENV HF_AUTH_TOKEN=$HF_AUTH_TOKEN
 
 # Add your model weight files 
 # (in this case we have a python script)
